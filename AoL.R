@@ -159,36 +159,7 @@ plot(hist_data, col = bin_colors, main = "Power Consumption Zone 3",
 legend("topright", legend = c("Low", "Medium", "High"), 
        fill = c("green", "yellow", "red"))
 
-# Data Corr
-numeric_columns <- data[, c("Temperature", "Humidity", 
-                            "WindSpeed", "DiffuseFlows", "GeneralDiffuseFlows", "PowerConsumption_Zone1", 
-                            "PowerConsumption_Zone2", "PowerConsumption_Zone3")]
 
-cor_matrix <- cor(numeric_columns, use = "complete.obs")
-print(cor_matrix)
-
-heatmap(cor_matrix, 
-        main = "Correlation Heatmap", 
-        col = colorRampPalette(c("blue", "white", "red"))(100), 
-        scale = "none", 
-        margins = c(5, 10))
-
-library(ggplot2)
-library(reshape2)
-
-cor_melt <- melt(cor_matrix)
-
-ggplot(cor_melt, aes(x = Var1, y = Var2, fill = value)) +
-  geom_tile(color = "white") +
-  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
-                       midpoint = 0, limit = c(-1, 1), space = "Lab", 
-                       name = "Correlation") +
-  geom_text(aes(label = round(value, 2)), color = "black", size = 3) +  # Add correlation values
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, 
-                                   size = 10, hjust = 1)) +
-  labs(title = "Correlation Heatmap with Values",
-       x = "Features", y = "Features")
 
 sorted_correlations <- as.data.frame(as.table(cor_matrix))
 sorted_correlations <- sorted_correlations[order(-abs(sorted_correlations$Freq)), ]
