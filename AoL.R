@@ -158,9 +158,3 @@ plot(hist_data, col = bin_colors, main = "Power Consumption Zone 3",
 
 legend("topright", legend = c("Low", "Medium", "High"), 
        fill = c("green", "yellow", "red"))
-
-
-
-sorted_correlations <- as.data.frame(as.table(cor_matrix))
-sorted_correlations <- sorted_correlations[order(-abs(sorted_correlations$Freq)), ]
-print(sorted_correlations)
